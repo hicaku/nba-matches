@@ -32,27 +32,19 @@
                         <table>
                             <tr>
                                 <td colspan="2">
-                                    {{
-                                        (
-                                            "0" + new Date(match.date).getDate()
-                                        ).slice(-2) +
-                                        "-" +
-                                        (
-                                            "0" +
-                                            (new Date(match.date).getMonth() +
-                                                1)
-                                        ).slice(-2) +
-                                        "-" +
-                                        new Date(match.date).getFullYear()
-                                    }}
+                                    {{ ("0" + new Date(match.date).getDate()).slice(-2) + "-" + ("0" + (new Date(match.date).getMonth() + 1)).slice(-2) + "-" + new Date(match.date).getFullYear() }}
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>{{ match.home_team.full_name }}</b></td>
+                                <td>
+                                    <b>{{ match.home_team.abbreviation }}</b>
+                                </td>
                                 <td>{{ match.home_team_score }}</td>
                             </tr>
                             <tr>
-                                <td><b>{{ match.visitor_team.full_name }}</b></td>
+                                <td>
+                                    <b>{{ match.visitor_team.abbreviation }}</b>
+                                </td>
                                 <td>{{ match.visitor_team_score }}</td>
                             </tr>
                         </table>
@@ -61,7 +53,7 @@
             </div>
             <button
                 class="nav-button next-button"
-                v-show="transformAmount !== 7500"
+                v-show="transformAmount !== 4500"
                 @click="nextCarousel()"
             >
                 <svg
@@ -108,7 +100,7 @@ import { Options, Vue } from "vue-class-component";
     },
     methods: {
         nextCarousel() {
-            if (this.transformAmount === 9000) return;
+            if (this.transformAmount === 4500) return;
             this.transformAmount = this.transformAmount + 1500;
             this.transformCarousel =
                 "translateX(-" + this.transformAmount + "px)";
@@ -175,24 +167,21 @@ export default class HomeData extends Vue {}
             margin: 10px 0;
             border-right: 1px solid rgb(184, 184, 184);
             padding: 10px;
-            flex-basis: 250px;
+            flex-basis: 160px;
             flex-grow: 0;
             flex-shrink: 0;
-            h5 {
-                margin: 0;
-            }
             .scores {
                 table {
-                  width: 100%;
-                  tr{
                     width: 100%;
-                    td:first-child {
-                        float: left;
+                    tr {
+                        width: 100%;
+                        td:first-child {
+                            float: left;
+                        }
+                        td:nth-child(2) {
+                            float: right;
+                        }
                     }
-                    td:nth-child(2) {
-                        float: right;
-                    }
-                  }
                 }
             }
         }
