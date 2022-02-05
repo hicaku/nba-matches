@@ -27,27 +27,51 @@
                 </svg>
             </button>
             <div class="card-wrapper" :style="{ transform: computedTransform }">
-                <div class="card" v-for="match in lastWeek" :key="match.id">
+                <div class="card" v-for="match in lastWeek" :key="match.id" @click="matchDetail(match.id)">
+                    <div class="match-date">
+                        {{
+                            ("0" + new Date(match.date).getDate()).slice(-2) +
+                            "-" +
+                            ("0" + (new Date(match.date).getMonth() + 1)).slice(
+                                -2
+                            ) +
+                            "-" +
+                            new Date(match.date).getFullYear()
+                        }}
+                    </div>
                     <div class="scores">
-                        <table>
-                            <tr>
-                                <td colspan="2">
-                                    {{ ("0" + new Date(match.date).getDate()).slice(-2) + "-" + ("0" + (new Date(match.date).getMonth() + 1)).slice(-2) + "-" + new Date(match.date).getFullYear() }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>{{ match.home_team.abbreviation }}</b>
-                                </td>
-                                <td>{{ match.home_team_score }}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>{{ match.visitor_team.abbreviation }}</b>
-                                </td>
-                                <td>{{ match.visitor_team_score }}</td>
-                            </tr>
-                        </table>
+                        <div class="row">
+                            <div class="logo">
+                                <img
+                                    :src="getImgUrl(match.home_team.id)"
+                                    width="20"
+                                    height="20"
+                                    v-bind:alt="match.home_team.abbreviation"
+                                />
+                            </div>
+                            <div class="abbr">
+                                {{ match.home_team.abbreviation }}
+                            </div>
+                            <div class="score">
+                                {{ match.home_team_score }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="logo">
+                                <img
+                                    :src="getImgUrl(match.visitor_team.id)"
+                                    width="20"
+                                    height="20"
+                                    v-bind:alt="match.visitor_team.abbreviation"
+                                />
+                            </div>
+                            <div class="abbr">
+                                {{ match.visitor_team.abbreviation }}
+                            </div>
+                            <div class="score">
+                                {{ match.visitor_team_score }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,8 +111,6 @@ import { Options, Vue } from "vue-class-component";
     props: ["lastWeekMatches", "upcomingMatches"],
     data() {
         return {
-            lastWeek: this.lastWeekMatches,
-            upcoming: this.upcomingMatches,
             transformCarousel: "translateX(0)",
             transformAmount: 0,
         };
@@ -96,6 +118,12 @@ import { Options, Vue } from "vue-class-component";
     computed: {
         computedTransform() {
             return this.transformCarousel;
+        },
+        lastWeek() {
+            return this.lastWeekMatches;
+        },
+        upcoming() {
+            return this.upcomingMatches;
         },
     },
     methods: {
@@ -111,6 +139,13 @@ import { Options, Vue } from "vue-class-component";
             this.transformCarousel =
                 "translateX(-" + this.transformAmount + "px)";
         },
+        getImgUrl(id: number) {
+            return require("@/assets/teamLogos/team_" + id + ".png");
+        },
+        matchDetail(id: number) {
+            this.$store.commit('setMatchId', id)
+            this.$router.push({name: 'MatchDetail'})    
+        }, 
     },
     mounted() {
         // this.maxWidth = (this.$refs['matchesCarousel'] as any).clientWidth;
@@ -170,17 +205,23 @@ export default class HomeData extends Vue {}
             flex-basis: 160px;
             flex-grow: 0;
             flex-shrink: 0;
+            cursor: pointer;
+            .match-date {
+                text-align: left;
+            }
             .scores {
-                table {
-                    width: 100%;
-                    tr {
-                        width: 100%;
-                        td:first-child {
-                            float: left;
-                        }
-                        td:nth-child(2) {
-                            float: right;
-                        }
+                margin-top: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                .row {
+                    display: flex;
+                    flex: 1;
+                    .abbr {
+                        padding-left: 5px;
+                        flex: 1 1;
+                        text-align: left;
+                        font-weight: 700;
                     }
                 }
             }
