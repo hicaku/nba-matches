@@ -4,8 +4,8 @@
             <div class="home">
                 <img
                     :src="getImgUrl(matchDetails.home_team?.id)"
-                    width="350"
-                    height="250"
+                    width="225"
+                    height="150"
                     :alt="matchDetails.home_team?.abbreviation"
                 /><br /><br />
                 <h2 class="name">{{ matchDetails.home_team?.name }}</h2>
@@ -16,8 +16,8 @@
             <div class="away">
                 <img
                     :src="getImgUrl(matchDetails.visitor_team?.id)"
-                    width="350"
-                    height="250"
+                    width="225"
+                    height="150"
                     :alt="matchDetails.visitor_team?.abbreviation"
                 /><br /><br />
                 <h2 class="name">{{ matchDetails.visitor_team?.name }}</h2>
@@ -382,10 +382,10 @@ export default class Home extends Vue {}
 <style lang="less" scoped>
 .score-card {
     width: 75%;
-    background: #1d428a;
+    background: #006DB4;
     color: #fff;
     border-radius: 20px;
-    margin: 70px auto;
+    margin: 30px auto;
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
@@ -398,14 +398,15 @@ export default class Home extends Vue {}
     h3 {
         display: inline-flex;
         align-items: center;
+        margin: 0 auto;
     }
     .divider {
-        padding: 0 50px;
+        padding: 50px;
     }
 }
 .box-score-card {
     width: 75%;
-    background: #1d428a;
+    background: #006DB4;
     color: #fff;
     border-radius: 20px;
     margin: 25px auto;
@@ -422,10 +423,10 @@ export default class Home extends Vue {}
             margin-top: 10px;
             margin-right: 30px;
             cursor: pointer;
-            transition: all 0.2s linear;
+            transition: all 0.5s linear;
             padding: 10px;
-            border-top: 1px solid rgb(153, 194, 255);
-            border-bottom: 1px solid rgb(153, 194, 255);
+            border-top: 1px solid #006DB4;
+            border-bottom: 1px solid #006DB4;
             border-radius: 7px;
         }
         input:checked + label {
@@ -472,6 +473,14 @@ export default class Home extends Vue {}
                 color: rgb(170, 170, 170);
                 margin-left: 7px;
             }
+        }
+    }
+}
+@media screen and (max-width: 972px) {
+    .score-card {
+        flex-direction: column;
+        .name {
+            display: none;
         }
     }
 }

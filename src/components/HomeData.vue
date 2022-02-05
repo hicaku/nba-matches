@@ -163,9 +163,7 @@ export default class HomeData extends Vue {}
 <style scoped lang="less">
 .matches-carousel {
     position: relative;
-    border-top: 2px solid rgb(184, 184, 184);
     border-bottom: 2px solid rgb(184, 184, 184);
-    margin-top: 10px;
     .nav-button {
         position: absolute;
         top: 50%;
@@ -173,8 +171,8 @@ export default class HomeData extends Vue {}
         border: none;
         border-radius: 50%;
         outline: none;
-        color: #0268d6;
-        background: rgba(255, 255, 255, 0.7);
+        color: #006DB4;
+        background: rgba(255, 255, 255, 0.8);
         height: 40px;
         width: 40px;
         transform: translateY(-50%);
@@ -182,7 +180,7 @@ export default class HomeData extends Vue {}
         cursor: pointer;
         &:hover {
             color: #fff;
-            background: #0268d6;
+            background: #006DB4;
         }
         &.prev-button {
             left: 10px;
