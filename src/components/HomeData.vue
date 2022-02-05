@@ -27,7 +27,12 @@
                 </svg>
             </button>
             <div class="card-wrapper" :style="{ transform: computedTransform }">
-                <div class="card" v-for="match in lastWeek" :key="match.id" @click="matchDetail(match.id)">
+                <div
+                    class="card"
+                    v-for="match in lastWeek"
+                    :key="match.id"
+                    @click="matchDetail(match.id)"
+                >
                     <div class="match-date">
                         {{
                             ("0" + new Date(match.date).getDate()).slice(-2) +
@@ -46,7 +51,7 @@
                                     :src="getImgUrl(match.home_team.id)"
                                     width="20"
                                     height="20"
-                                    v-bind:alt="match.home_team.abbreviation"
+                                    :alt="match.home_team.abbreviation"
                                 />
                             </div>
                             <div class="abbr">
@@ -143,9 +148,9 @@ import { Options, Vue } from "vue-class-component";
             return require("@/assets/teamLogos/team_" + id + ".png");
         },
         matchDetail(id: number) {
-            this.$store.commit('setMatchId', id)
-            this.$router.push({name: 'MatchDetail'})    
-        }, 
+            this.$store.commit("setMatchId", id);
+            this.$router.push({ name: "MatchDetail" });
+        },
     },
     mounted() {
         // this.maxWidth = (this.$refs['matchesCarousel'] as any).clientWidth;
@@ -222,6 +227,7 @@ export default class HomeData extends Vue {}
                         flex: 1 1;
                         text-align: left;
                         font-weight: 700;
+                        margin-top: 3px;
                     }
                 }
             }

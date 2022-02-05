@@ -15,13 +15,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/match-detail',
     name: 'MatchDetail',
-    component: () => import('../views/MatchDetail.vue')
+    component: () => import('../views/MatchDetail.vue'),
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router
