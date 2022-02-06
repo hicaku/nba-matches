@@ -1,34 +1,18 @@
 # nba-matches
 
-## Project setup
-```
-npm install
-```
+Hi! This is a **Vue.js + Vuex + TypeScript + Jest + Cypress** implementation. In this app you can **check the latest games, check the box score, examine the players' statistics season by season and more!**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+If you want to try it out you can simply click **Code > Copy Icon** and go to your Terminal/Cmd etc.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+    git clone THIS_REPOSITORY_LINK
 
-### Run your unit tests
-```
-npm run test:unit
-```
+After cloning is finished, you **must** install the npm in order to run.
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+    npm install
+    
+Then, you are ready to give it a shot! Just type
 
-### Lints and fixes files
-```
-npm run lint
-```
+    npm run serve
+and you will see the project in your browser!
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![image](https://user-images.githubusercontent.com/40501852/152704786-de0c5e35-74df-4b57-9ee8-d1c85c39ec46.png)
