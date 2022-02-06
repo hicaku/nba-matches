@@ -12,6 +12,14 @@
                 :key="match.id"
                 @click="matchDetail(match.id)"
             >
+                <div class="nba-logo">
+                    <img
+                        src="@/assets/nba75.png"
+                        alt="NBA 75"
+                        width="50"
+                        height="50"
+                    />
+                </div>
                 <img
                     :src="getImgUrl(match.home_team.id)"
                     width="30"
@@ -65,7 +73,9 @@
                 <h3 class="name">{{ match.visitor_team.full_name }}</h3>
                 <span class="status">{{
                     match.status.includes("Qtr")
-                        ? (match.time ? match.time : '12:00') + ' - ' + match.status
+                        ? (match.time ? match.time : "12:00") +
+                          " - " +
+                          match.status
                         : match.status
                 }}</span>
             </div>
@@ -126,14 +136,14 @@ export default class HomeCarousel extends Vue {
             flex-basis: 10%;
             word-break: keep-all;
         }
-        div,
+        .versus,
         h3 {
             flex-basis: 20%;
         }
         h4 {
             flex-basis: 5%;
         }
-        .date {
+        .nba-logo {
             border-right: 1px solid #fff;
         }
         .status {
