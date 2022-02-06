@@ -25,6 +25,8 @@ body {
     font-family: "Rubik", sans-serif;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
+    background: #f6f6f6;
 }
 
 #app {

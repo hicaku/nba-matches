@@ -4,9 +4,9 @@
             ><img src="@/assets/logo.png" alt="NBA" width="100" height="50"
         /></router-link>
         <router-link to="/"><span>Home</span></router-link>
-        <router-link to="/latest-matches"
+        <!-- <router-link to="/latest-matches"
             ><span>Latest Matches</span></router-link
-        >
+        > -->
     </div>
 </template>
 <style lang="less" scoped>
@@ -17,6 +17,8 @@
     font-size: 24px;
     padding-right: 20px;
     color: #fff;
+    width: 100%;
+    border-bottom: 2px solid #b8b8b8;
     img {
         float: left;
         margin-left: 20px;

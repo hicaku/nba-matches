@@ -28,9 +28,11 @@ export default createStore({
   actions: {
     async getLastWeekMatches({ commit }) {
       const date = new Date();
+      const tomorrow = new Date(date)
+      tomorrow.setDate(tomorrow.getDate() + 1)
       const last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
       const startDate = last.getFullYear() + '-' + ("0" + (last.getMonth() + 1)).slice(-2) + '-' + ("0" + (last.getDate())).slice(-2);
-      const endDate = date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + (date.getDate())).slice(-2);
+      const endDate = tomorrow.getFullYear() + '-' + ("0" + (tomorrow.getMonth() + 1)).slice(-2) + '-' + ("0" + (tomorrow.getDate() + 1)).slice(-2);
       const url = 'https://www.balldontlie.io/api/v1/games?start_date='+startDate+'&end_date='+endDate+'&per_page=100';
       const response = await axios.get(url)
       commit('setLastWeekMatches', response.data);

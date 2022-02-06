@@ -23,13 +23,17 @@
                         stroke-linejoin="round"
                         stroke-miterlimit="10"
                         d="M6.5 1.6L1.5 7l5 5.4"
-                    ></path>
+                    />
                 </svg>
             </button>
-            <div class="card-wrapper" :style="{ transform: computedTransform }">
+            <div
+                class="card-wrapper"
+                ref="cardWrapper"
+                :style="{ transform: computedTransform }"
+            >
                 <div
                     class="card"
-                    v-for="match in lastWeek"
+                    v-for="match in lastWeekMatches"
                     :key="match.id"
                     @click="matchDetail(match.id)"
                 >
@@ -57,9 +61,7 @@
                             <div class="abbr">
                                 {{ match.home_team.abbreviation }}
                             </div>
-                            <div class="score">
-                                {{ match.home_team_score }}
-                            </div>
+                            <div class="score">{{ match.home_team_score }}</div>
                         </div>
                         <div class="row">
                             <div class="logo">
@@ -82,7 +84,7 @@
             </div>
             <button
                 class="nav-button next-button"
-                v-show="transformAmount !== 4500"
+                v-show="transformAmount < 6200"
                 @click="nextCarousel()"
             >
                 <svg
@@ -102,7 +104,7 @@
                         stroke-linejoin="round"
                         stroke-miterlimit="10"
                         d="M6.5 1.6L1.5 7l5 5.4"
-                    ></path>
+                    />
                 </svg>
             </button>
         </div>
@@ -111,59 +113,64 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { useStore } from "vuex";
 
 @Options({
-    props: ["lastWeekMatches", "upcomingMatches"],
-    data() {
-        return {
-            transformCarousel: "translateX(0)",
-            transformAmount: 0,
-        };
-    },
-    computed: {
-        computedTransform() {
-            return this.transformCarousel;
-        },
-        lastWeek() {
-            return this.lastWeekMatches;
-        },
-        upcoming() {
-            return this.upcomingMatches;
-        },
-    },
-    methods: {
-        nextCarousel() {
-            if (this.transformAmount === 4500) return;
-            this.transformAmount = this.transformAmount + 1500;
-            this.transformCarousel =
-                "translateX(-" + this.transformAmount + "px)";
-        },
-        previousCarousel() {
-            if (this.transformAmount === 0) return;
-            this.transformAmount = this.transformAmount - 1500;
-            this.transformCarousel =
-                "translateX(-" + this.transformAmount + "px)";
-        },
-        getImgUrl(id: number) {
-            return require("@/assets/teamLogos/team_" + id + ".png");
-        },
-        matchDetail(id: number) {
-            this.$store.commit("setMatchId", id);
-            this.$router.push({ name: "MatchDetail" });
-        },
-    },
-    mounted() {
-        // this.maxWidth = (this.$refs['matchesCarousel'] as any).clientWidth;
-    },
+    props: ["lastWeekMatches"],
 })
-export default class HomeData extends Vue {}
+export default class HomeCarousel extends Vue {
+    $refs!:{
+        cardWrapper: HTMLElement
+    }
+    private store = useStore();
+    public transformCarousel = "translateX(0)";
+    public transformAmount = 0;
+    public lastWeekMatches = [];
+
+    get computedTransform(): any {
+        return this.transformCarousel;
+    }
+
+    nextCarousel(): void {
+        if (this.transformAmount >= 6200) {
+            this.transformAmount = 6200;
+            this.transformCarousel = "translateX(-6200px)";
+            return;
+        }
+        this.transformAmount =
+            this.transformAmount +
+            (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
+        this.transformCarousel =
+            "translateX(-" + this.transformAmount + "px)";
+    }
+    previousCarousel(): void {
+        if (this.transformAmount - 175 <= 0) {
+            this.transformAmount = 0;
+            this.transformCarousel = "translateX(0px)";
+            return;
+        }
+        this.transformAmount =
+            this.transformAmount -
+            (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
+        this.transformCarousel =
+            "translateX(-" + this.transformAmount + "px)";
+    }
+    getImgUrl(id: number): any {
+        return require("@/assets/teamLogos/team_" + id + ".png");
+    }
+    matchDetail(id: number): void {
+        this.store.commit("setMatchId", id);
+        this.$router.push('/match-detail');
+    }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .matches-carousel {
     position: relative;
-    border-bottom: 2px solid rgb(184, 184, 184);
+    border-bottom: 1px solid rgb(184, 184, 184);
+    background: #fff;
     .nav-button {
         position: absolute;
         top: 50%;
@@ -171,7 +178,7 @@ export default class HomeData extends Vue {}
         border: none;
         border-radius: 50%;
         outline: none;
-        color: #006DB4;
+        color: #006db4;
         background: rgba(255, 255, 255, 0.8);
         height: 40px;
         width: 40px;
@@ -180,7 +187,7 @@ export default class HomeData extends Vue {}
         cursor: pointer;
         &:hover {
             color: #fff;
-            background: #006DB4;
+            background: #006db4;
         }
         &.prev-button {
             left: 10px;
@@ -205,7 +212,7 @@ export default class HomeData extends Vue {}
             margin: 10px 0;
             border-right: 1px solid rgb(184, 184, 184);
             padding: 10px;
-            flex-basis: 160px;
+            flex-basis: 175px;
             flex-grow: 0;
             flex-shrink: 0;
             cursor: pointer;

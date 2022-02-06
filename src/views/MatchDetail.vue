@@ -3,24 +3,24 @@
         <div class="score-card">
             <div class="home">
                 <img
-                    :src="getImgUrl(matchDetails.home_team?.id)"
+                    :src="getImgUrl(matchDetail.home_team?.id)"
                     width="225"
                     height="150"
-                    :alt="matchDetails.home_team?.abbreviation"
+                    :alt="matchDetail.home_team?.abbreviation"
                 /><br /><br />
-                <h2 class="name">{{ matchDetails.home_team?.name }}</h2>
+                <h2 class="name">{{ matchDetail.home_team?.name }}</h2>
             </div>
-            <h1 class="score">{{ matchDetails.home_team_score }}</h1>
+            <h1 class="score">{{ matchDetail.home_team_score }}</h1>
             <h3 class="divider">FINAL</h3>
-            <h1 class="score">{{ matchDetails.visitor_team_score }}</h1>
+            <h1 class="score">{{ matchDetail.visitor_team_score }}</h1>
             <div class="away">
                 <img
-                    :src="getImgUrl(matchDetails.visitor_team?.id)"
+                    :src="getImgUrl(matchDetail.visitor_team?.id)"
                     width="225"
                     height="150"
-                    :alt="matchDetails.visitor_team?.abbreviation"
+                    :alt="matchDetail.visitor_team?.abbreviation"
                 /><br /><br />
-                <h2 class="name">{{ matchDetails.visitor_team?.name }}</h2>
+                <h2 class="name">{{ matchDetail.visitor_team?.name }}</h2>
             </div>
         </div>
         <div class="box-score-card">
@@ -37,21 +37,21 @@
                     type="radio"
                     name="teamSide"
                     id="homeLabel"
-                    :value="matchDetails.home_team?.id"
+                    :value="matchDetail.home_team?.id"
                     v-model="teamOnBoxScore"
                 />
                 <label for="homeLabel">{{
-                    matchDetails.home_team?.full_name
+                    matchDetail.home_team?.full_name
                 }}</label>
                 <input
                     type="radio"
                     name="teamSide"
                     id="visitorLabel"
-                    :value="matchDetails.visitor_team?.id"
+                    :value="matchDetail.visitor_team?.id"
                     v-model="teamOnBoxScore"
                 />
                 <label for="visitorLabel">{{
-                    matchDetails.visitor_team?.full_name
+                    matchDetail.visitor_team?.full_name
                 }}</label>
             </div>
             <div style="overflow: auto">
@@ -93,7 +93,7 @@
                             )"
                             :key="index"
                         >
-                            <td>
+                            <td @click="playerDetail(player.id)">
                                 <div class="player-name">
                                     {{
                                         player.player.first_name +
@@ -106,7 +106,11 @@
                                 </div>
                             </td>
                             <td>
-                                {{ player.min === "" ? "DNP" : player.min }}
+                                {{
+                                    player.min === "" || player.min === "0:00"
+                                        ? "DNP"
+                                        : player.min
+                                }}
                             </td>
                             <td>{{ player.pts }}</td>
                             <td>{{ player.ast }}</td>
@@ -343,46 +347,47 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
+import { useStore } from "vuex";
 
-@Options({
-    data() {
-        return {
-            boxScore: [],
-            matchDetails: [],
-            teamOnBoxScore: -1,
-        };
-    },
-    computed: {
-        boxScoreFiltered() {
-            if (this.teamOnBoxScore === -1) return this.boxScore;
-            return this.boxScore.filter(
-                (player: any) => player.player.team_id === this.teamOnBoxScore
-            );
-        },
-    },
+export default class Home extends Vue {
+    private store = useStore();
+    private boxScore = [];
+    public matchDetails = [];
+    public teamOnBoxScore = -1;
+
+    get boxScoreFiltered(): any {
+        if (this.teamOnBoxScore === -1) return this.boxScore;
+        return this.boxScore.filter(
+            (player: any) => player.player.team_id === this.teamOnBoxScore
+        );
+
+    }
+    get matchDetail(): any {
+        return this.matchDetails;
+    }
+    playerDetail(id: number): void {
+        console.log(id)
+    }
+    getImgUrl(id: number): any {
+        if (id) {
+            return require("@/assets/teamLogos/team_" + id + ".png");
+        }
+    }
     async beforeMount() {
-        await this.$store.dispatch("getBoxScore").then(() => {
-            this.boxScore = this.$store.getters.boxScore;
+        await this.store.dispatch("getBoxScore").then(() => {
+            this.boxScore = this.store.getters.boxScore;
         });
-        await this.$store.dispatch("getMatchDetails").then(() => {
-            this.matchDetails = this.$store.getters.matchDetails;
+        await this.store.dispatch("getMatchDetails").then(() => {
+            this.matchDetails = this.store.getters.matchDetails;
         });
-    },
-    methods: {
-        getImgUrl(id: number) {
-            if (id) {
-                return require("@/assets/teamLogos/team_" + id + ".png");
-            }
-        },
-    },
-})
-export default class Home extends Vue {}
+    }
+}
 </script>
 <style lang="less" scoped>
 .score-card {
     width: 75%;
-    background: #006DB4;
+    background: #006db4;
     color: #fff;
     border-radius: 20px;
     margin: 30px auto;
@@ -406,7 +411,7 @@ export default class Home extends Vue {}
 }
 .box-score-card {
     width: 75%;
-    background: #006DB4;
+    background: #006db4;
     color: #fff;
     border-radius: 20px;
     margin: 25px auto;
@@ -425,8 +430,8 @@ export default class Home extends Vue {}
             cursor: pointer;
             transition: all 0.5s linear;
             padding: 10px;
-            border-top: 1px solid #006DB4;
-            border-bottom: 1px solid #006DB4;
+            border-top: 1px solid #006db4;
+            border-bottom: 1px solid #006db4;
             border-radius: 7px;
         }
         input:checked + label {
