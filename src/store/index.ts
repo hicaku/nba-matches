@@ -47,7 +47,8 @@ export default createStore({
       const endDate = tomorrow.getFullYear() + '-' + ("0" + (tomorrow.getMonth() + 1)).slice(-2) + '-' + ("0" + (tomorrow.getDate() + 1)).slice(-2);
       const url = 'https://www.balldontlie.io/api/v1/games?start_date='+startDate+'&end_date='+endDate+'&per_page=100';
       const response = await axios.get(url)
-      commit('setLastWeekMatches', response.data);
+      console.log(response.data.data)
+      commit('setLastWeekMatches', response.data.data.sort((match1: any, match2: any) => match1.id - match2.id));
     },
     async getBoxScore({ commit, state}) {
       const url = 'https://www.balldontlie.io/api/v1/stats?per_page=35&game_ids[]=' + state.matchId;

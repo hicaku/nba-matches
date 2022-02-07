@@ -765,12 +765,13 @@ export default defineComponent({
             }
         }
         .avg-row {
-            background: #000;
+            background: #002a46;
         }
         .match-row {
+            transition: all .7s;
             &:hover {
                 cursor: pointer;
-                background: #000;
+                background: #003d66;
                 color: #fff;
             }
         }

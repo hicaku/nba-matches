@@ -29,9 +29,9 @@ export default defineComponent({
     },
     async beforeMount() {
         await store.dispatch('getLastWeekMatches').then(() => {
-            this.lastWeekMatches = store.getters.lastWeekMatches.data.filter((match: any) => match.status === 'Final').sort((match1: any, match2: any) => match2.id - match1.id).slice(0, 35)
-            this.upcomingMatches = store.getters.lastWeekMatches.data.filter((match: any) => match.status !== 'Final' && match.status.includes('ET')).sort((match1: any, match2: any) => match1.id - match2.id)
-            this.liveMatches = store.getters.lastWeekMatches.data.filter((match: any) => match.status !== 'Final' && !match.status.includes('ET')).sort((match1: any, match2: any) => match1.id - match2.id)
+            this.lastWeekMatches = store.getters.lastWeekMatches.filter((match: any) => match.status === 'Final').sort((match1: any, match2: any) => match2.id - match1.id).slice(0, 35)
+            this.upcomingMatches = store.getters.lastWeekMatches.filter((match: any) => match.status !== 'Final' && match.status.includes('ET'))
+            this.liveMatches = store.getters.lastWeekMatches.filter((match: any) => match.status !== 'Final' && !match.status.includes('ET'))
         })
     }
 })

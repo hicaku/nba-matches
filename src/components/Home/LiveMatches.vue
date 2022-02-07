@@ -119,6 +119,7 @@ export default defineComponent({
         border-radius: 25px;
         background: #006db4;
         color: #fff;
+        transition: all .5s;
         cursor: pointer;
         span,
         h3,

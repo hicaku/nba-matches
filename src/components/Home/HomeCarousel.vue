@@ -184,6 +184,7 @@ export default defineComponent({
         transform: translateY(-50%);
         z-index: 90;
         cursor: pointer;
+        transition: all .5s;
         &:hover {
             color: #fff;
             background: #006db4;
@@ -208,12 +209,12 @@ export default defineComponent({
         transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
         height: 100px;
         .card {
-            margin: 10px 0;
             border-right: 1px solid rgb(184, 184, 184);
             padding: 10px;
             flex-basis: 175px;
             flex-grow: 0;
             flex-shrink: 0;
+            transition: all .5s;
             cursor: pointer;
             .match-date {
                 text-align: left;
@@ -234,6 +235,10 @@ export default defineComponent({
                         margin-top: 3px;
                     }
                 }
+            }
+            &:hover {
+                color: #fff;
+                background: #006db4;
             }
         }
     }

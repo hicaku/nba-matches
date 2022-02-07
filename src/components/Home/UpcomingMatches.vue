@@ -107,10 +107,10 @@ export default defineComponent({
             display: inline-flex;
             align-items: center;
             text-align: left;
+            word-break: break-word;
         }
         span {
-            padding: 20px;
-            word-break: keep-all;
+            padding: 0 10px;
         }
         .status {
             flex-basis: 10%;
