@@ -402,10 +402,9 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .score-card {
-    width: 75%;
+    width: 100%;
     background: #006db4;
     color: #fff;
-    border-radius: 20px;
     margin: 30px auto;
     padding: 30px;
     display: flex;
@@ -444,7 +443,7 @@ export default defineComponent({
             margin-top: 10px;
             margin-right: 30px;
             cursor: pointer;
-            transition: all .7s linear;
+            transition: all 0.7s linear;
             padding: 10px;
             border-top: 1px solid #006db4;
             border-bottom: 1px solid #006db4;
@@ -468,7 +467,7 @@ export default defineComponent({
             text-overflow: ellipsis;
             white-space: nowrap;
             cursor: pointer;
-            transition: all .7s;
+            transition: all 0.7s;
             &:hover {
                 color: rgb(170, 170, 170);
             }
@@ -504,6 +503,7 @@ export default defineComponent({
 @media screen and (max-width: 972px) {
     .score-card {
         flex-direction: column;
+        padding: 30px 0;
         .name {
             display: none;
         }
