@@ -47,7 +47,6 @@ export default createStore({
       const endDate = tomorrow.getFullYear() + '-' + ("0" + (tomorrow.getMonth() + 1)).slice(-2) + '-' + ("0" + (tomorrow.getDate() + 1)).slice(-2);
       const url = 'https://www.balldontlie.io/api/v1/games?start_date='+startDate+'&end_date='+endDate+'&per_page=100';
       const response = await axios.get(url)
-      console.log(response.data.data)
       commit('setLastWeekMatches', response.data.data.sort((match1: any, match2: any) => match1.id - match2.id));
     },
     async getBoxScore({ commit, state}) {
@@ -69,11 +68,6 @@ export default createStore({
       const responsePlayoffs = await axios.get(urlPlayoffs)
       commit('setPlayerDetailsPlayoffs', responsePlayoffs.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min).sort((match1: any, match2: any) => match2.id - match1.id));
     },
-    // getTeamName(teamId) {
-    //   const url = 'https://www.balldontlie.io/api/v1/teams/'+ teamId;
-    //   const response = axios.get(url)
-    //   console.log(response);
-    // },
     async getPlayerInfo({state}) {
       const url = 'https://www.balldontlie.io/api/v1/players/'+ state.playerId;
       const response = await axios.get(url)
