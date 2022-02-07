@@ -110,57 +110,58 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { useStore } from "vuex";
+import { defineComponent } from 'vue';
+import store from '@/store';
 
-@Options({
+export default defineComponent({
+    name: 'HomeCarousel',
     props: ["lastWeekMatches"],
+    data() {
+        return {
+            transformCarousel: 'translateX(0)',
+            transformAmount: 0,
+        }
+    },
+    computed: {
+        computedTransform() {
+            return this.transformCarousel;
+        }
+    },
+    methods: {
+        nextCarousel(): void {
+            if (this.transformAmount >= 6200) {
+                this.transformAmount = 6200;
+                this.transformCarousel = "translateX(-6200px)";
+                return;
+            }
+            this.transformAmount =
+                this.transformAmount +
+                (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
+            this.transformCarousel =
+                "translateX(-" + this.transformAmount + "px)";
+        },
+        previousCarousel(): void {
+            if (this.transformAmount - 175 <= 0) {
+                this.transformAmount = 0;
+                this.transformCarousel = "translateX(0px)";
+                return;
+            }
+            this.transformAmount =
+                this.transformAmount -
+                (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
+            this.transformCarousel =
+                "translateX(-" + this.transformAmount + "px)";
+        },
+        getImgUrl(id: number): any {
+            return require("@/assets/teamLogos/team_" + id + ".png");
+        },
+        matchDetail(id: number): void {
+            store.commit("setMatchId", id);
+            this.$router.push('/match-detail');
+        },
+    },
 })
-export default class HomeCarousel extends Vue {
-    $refs!:{
-        cardWrapper: HTMLElement
-    }
-    private store = useStore();
-    public transformCarousel = "translateX(0)";
-    public transformAmount = 0;
-    public lastWeekMatches = [];
 
-    get computedTransform(): any {
-        return this.transformCarousel;
-    }
-
-    nextCarousel(): void {
-        if (this.transformAmount >= 6200) {
-            this.transformAmount = 6200;
-            this.transformCarousel = "translateX(-6200px)";
-            return;
-        }
-        this.transformAmount =
-            this.transformAmount +
-            (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
-        this.transformCarousel =
-            "translateX(-" + this.transformAmount + "px)";
-    }
-    previousCarousel(): void {
-        if (this.transformAmount - 175 <= 0) {
-            this.transformAmount = 0;
-            this.transformCarousel = "translateX(0px)";
-            return;
-        }
-        this.transformAmount =
-            this.transformAmount -
-            (this.$refs.cardWrapper.clientWidth / 175 - 1) * 175;
-        this.transformCarousel =
-            "translateX(-" + this.transformAmount + "px)";
-    }
-    getImgUrl(id: number): any {
-        return require("@/assets/teamLogos/team_" + id + ".png");
-    }
-    matchDetail(id: number): void {
-        this.store.commit("setMatchId", id);
-        this.$router.push('/match-detail');
-    }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

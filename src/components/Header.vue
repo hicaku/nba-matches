@@ -34,7 +34,7 @@
         color: #fff;
         border-right: 1px solid #fff;
         &:hover {
-          color: #006DB4
+            color: #006db4;
         }
     }
 }

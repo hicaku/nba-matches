@@ -83,24 +83,22 @@
     </div>
 </template>
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { useStore } from "vuex";
+import { defineComponent } from 'vue';
+import store from '@/store';
 
-@Options({
+export default defineComponent({
+    name: 'LiveMatches',
     props: ["liveMatches"],
+    methods: {
+        getImgUrl(id: number): any {
+            return require("@/assets/teamLogos/team_" + id + ".png");
+        },
+        matchDetail(id: number): void {
+            store.commit("setMatchId", id);
+            this.$router.push('/match-detail');
+        }
+    },
 })
-export default class LiveMatches extends Vue {
-    private store = useStore();
-    public liveMatches = [];
-
-    getImgUrl(id: number): any {
-        return require("@/assets/teamLogos/team_" + id + ".png");
-    }
-    matchDetail(id: number): void {
-        this.store.commit("setMatchId", id);
-        this.$router.push('/match-detail');
-    }
-}
 </script>
 <style lang="less" scoped>
 .live-list {

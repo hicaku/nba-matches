@@ -63,10 +63,10 @@ export default createStore({
       if(!season) season === '2021'
       const url = 'https://www.balldontlie.io/api/v1/stats?postseason=false&per_page=100&seasons[]='+season+'&player_ids[]=' + state.playerId;
       const response = await axios.get(url)
-      commit('setPlayerDetails', response.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min));
+      commit('setPlayerDetails', response.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min).sort((match1: any, match2: any) => match2.id - match1.id));
       const urlPlayoffs = 'https://www.balldontlie.io/api/v1/stats?postseason=true&per_page=100&seasons[]='+season+'&player_ids[]=' + state.playerId;
       const responsePlayoffs = await axios.get(urlPlayoffs)
-      commit('setPlayerDetailsPlayoffs', responsePlayoffs.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min));
+      commit('setPlayerDetailsPlayoffs', responsePlayoffs.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min).sort((match1: any, match2: any) => match2.id - match1.id));
     },
     // getTeamName(teamId) {
     //   const url = 'https://www.balldontlie.io/api/v1/teams/'+ teamId;

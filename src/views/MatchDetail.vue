@@ -347,43 +347,58 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
-import { useStore } from "vuex";
+import { defineComponent } from 'vue';
+import store from '@/store';
 
-export default class MatchDetail extends Vue {
-    private store = useStore();
-    private boxScore = [];
-    public matchDetails = [];
-    public teamOnBoxScore = -1;
-
-    get boxScoreFiltered(): any {
-        if (this.teamOnBoxScore === -1) return this.boxScore;
-        return this.boxScore.filter(
-            (player: any) => player.player.team_id === this.teamOnBoxScore
-        );
-
-    }
-    get matchDetail(): any {
-        return this.matchDetails;
-    }
-    playerDetail(id: number): void {
-        this.store.commit("setPlayerId", id);
-        this.$router.push('/player-detail');
-    }
-    getImgUrl(id: number): any {
-        if (id) {
-            return require("@/assets/teamLogos/team_" + id + ".png");
+export default defineComponent({
+    name: 'MatchDetail',
+    data() {
+        return {
+            boxScore: [],
+            matchDetails: [],
+            teamOnBoxScore: -1,
         }
-    }
+    },
+    computed: {
+        boxScoreFiltered(): any {
+            if (this.teamOnBoxScore === -1) return this.boxScore;
+            return this.boxScore.filter(
+                (player: any) => player.player.team_id === this.teamOnBoxScore
+            );
+        },
+        matchDetail() {
+            return this.matchDetails;
+        },
+        playerInfo() {
+            return this.playerInfos;
+        },
+    },
+    methods: {
+        playerDetail(id: number): void {
+            store.commit("setPlayerId", id);
+            this.$router.push('/player-detail');
+        },
+        getImgUrl(id: number): any {
+            if (id) {
+                return require('@/assets/teamLogos/team_' + id + '.png');
+            }
+        },
+        async getBoxScore() {
+            await store.dispatch("getBoxScore").then(() => {
+                this.boxScore = store.getters.boxScore;
+            });
+        },
+        async getMatchDetails() {
+            await store.dispatch("getMatchDetails").then(() => {
+                this.matchDetails = store.getters.matchDetails;
+            });
+        },
+    },
     async beforeMount() {
-        await this.store.dispatch("getBoxScore").then(() => {
-            this.boxScore = this.store.getters.boxScore;
-        });
-        await this.store.dispatch("getMatchDetails").then(() => {
-            this.matchDetails = this.store.getters.matchDetails;
-        });
+        this.getBoxScore();
+        this.getMatchDetails();
     }
-}
+})
 </script>
 <style lang="less" scoped>
 .score-card {

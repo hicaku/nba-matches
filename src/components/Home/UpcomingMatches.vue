@@ -4,7 +4,6 @@
             <h3>Upcoming Matches</h3>
             <div
                 class="upcoming-match"
-                :class="match.date !== date"
                 v-for="match in upcomingMatches"
                 :key="match.id"
             >
@@ -12,9 +11,7 @@
                     {{
                         ("0" + new Date(match.date).getDate()).slice(-2) +
                         "/" +
-                        ("0" + (new Date(match.date).getMonth() + 1)).slice(
-                            -2
-                        )
+                        ("0" + (new Date(match.date).getMonth() + 1)).slice(-2)
                     }}
                 </span>
                 <img
@@ -72,21 +69,18 @@
     </div>
 </template>
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { useStore } from "vuex";
+import { defineComponent } from 'vue';
 
-@Options({
-    props: ["upcomingMatches"],
+export default defineComponent({
+    name: 'UpcomingMatches',
+    props: ['upcomingMatches'],
+    methods: {
+        getImgUrl(id: number): any {
+            return require("@/assets/teamLogos/team_" + id + ".png");
+        }
+    },
 })
-export default class UpcomingMatches extends Vue {
-    private store = useStore();
-    public upcomingMatches = [];
-    public date = "";
 
-    getImgUrl(id: number): any {
-        return require("@/assets/teamLogos/team_" + id + ".png");
-    }
-}
 </script>
 <style lang="less" scoped>
 .upcoming-list {

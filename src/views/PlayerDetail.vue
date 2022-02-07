@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="seasons">
-            <h3>SEASON </h3>
+            <h3>SEASON</h3>
             <select v-model="season" @change="getPlayerDetails()">
                 <option
                     v-for="year in Array.from(
@@ -626,50 +626,57 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
+import store from '@/store';
 
-export default class PlayerDetail extends Vue {
-    private store = useStore();
-    public playerDetails = [];
-    public playerDetailsPlayoffs = [];
-    public playerInfos = [];
-    public season = '2021';
-
-    get playerDetail(): any {
-        return this.playerDetails.sort((match1, match2) => match2.id - match1.id);
-    }
-    get playerDetailsPlayoff(): any {
-        return this.playerDetailsPlayoffs;
-    }
-    get playerInfo(): any {
-        return this.playerInfos;
-    }
-    getImgUrl(id: number): any {
-        if (id) {
-            return require('@/assets/teamLogos/team_' + id + '.png');
+export default defineComponent({
+    name: 'PlayerDetail',
+    data() {
+        return {
+            playerDetailsPlayoffs: [],
+            playerDetails: [],
+            playerInfos: [],
+            season: '2021',
         }
-    }
-    matchDetail(id: number): void {
-        this.store.commit("setMatchId", id);
-        this.$router.push('/match-detail');
-    }
-    async getPlayerInfo() {
-        await this.store.dispatch('getPlayerInfo').then((response: any) => {
-            this.playerInfos = response;
-        });
-    }
-    async getPlayerDetails() {
-        await this.store.dispatch('getPlayerDetails', this.season).then(() => {
-            this.playerDetails = this.store.getters.playerDetails;
-            this.playerDetailsPlayoffs = this.store.getters.playerDetailsPlayoffs;
-        });
-    }
+    },
+    computed: {
+        playerDetail(): any {
+            return this.playerDetails;
+        },
+        playerDetailsPlayoff() {
+            return this.playerDetailsPlayoffs;
+        },
+        playerInfo() {
+            return this.playerInfos;
+        },
+    },
+    methods: {
+        getImgUrl(id: number): any {
+            if (id) {
+                return require('@/assets/teamLogos/team_' + id + '.png');
+            }
+        },
+        matchDetail(id: number): void {
+            store.commit("setMatchId", id);
+            this.$router.push('/match-detail');
+        },
+        async getPlayerInfo() {
+            await store.dispatch('getPlayerInfo').then((response: any) => {
+                this.playerInfos = response;
+            });
+        },
+        async getPlayerDetails() {
+            await store.dispatch('getPlayerDetails', this.season).then(() => {
+                this.playerDetails = store.getters.playerDetails;
+                this.playerDetailsPlayoffs = store.getters.playerDetailsPlayoffs;
+            });
+        }
+    },
     async beforeMount() {
         this.getPlayerDetails();
         this.getPlayerInfo();
     }
-}
+});
 </script>
 <style lang="less" scoped>
 .player-details {
