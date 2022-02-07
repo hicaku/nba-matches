@@ -405,7 +405,7 @@ export default defineComponent({
     width: 100%;
     background: #006db4;
     color: #fff;
-    margin: 30px auto;
+    margin: 0 auto 60px;
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
