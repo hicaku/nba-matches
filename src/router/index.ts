@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'MatchDetail',
     component: () => import('../views/MatchDetail.vue'),
   },
+  {
+    path: '/player-detail',
+    name: 'PlayerDetail',
+    component: () => import('../views/PlayerDetail.vue'),
+  },
 ]
 
 const router = createRouter({

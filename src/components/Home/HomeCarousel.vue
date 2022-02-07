@@ -40,12 +40,10 @@
                     <div class="match-date">
                         {{
                             ("0" + new Date(match.date).getDate()).slice(-2) +
-                            "-" +
+                            "/" +
                             ("0" + (new Date(match.date).getMonth() + 1)).slice(
                                 -2
-                            ) +
-                            "-" +
-                            new Date(match.date).getFullYear()
+                            )
                         }}
                     </div>
                     <div class="scores">

@@ -11,12 +11,10 @@
                 <span class="date">
                     {{
                         ("0" + new Date(match.date).getDate()).slice(-2) +
-                        "-" +
+                        "/" +
                         ("0" + (new Date(match.date).getMonth() + 1)).slice(
                             -2
-                        ) +
-                        "-" +
-                        new Date(match.date).getFullYear()
+                        )
                     }}
                 </span>
                 <img
@@ -80,7 +78,7 @@ import { useStore } from "vuex";
 @Options({
     props: ["upcomingMatches"],
 })
-export default class HomeCarousel extends Vue {
+export default class UpcomingMatches extends Vue {
     private store = useStore();
     public upcomingMatches = [];
     public date = "";
@@ -101,7 +99,6 @@ export default class HomeCarousel extends Vue {
         flex-wrap: nowrap;
         justify-content: space-evenly;
         align-items: stretch;
-        height: 50px;
         width: 75%;
         min-width: 475px;
         margin: 0 auto;
@@ -119,8 +116,13 @@ export default class HomeCarousel extends Vue {
         }
         span {
             padding: 20px;
-            flex-basis: 10%;
             word-break: keep-all;
+        }
+        .status {
+            flex-basis: 10%;
+        }
+        .date {
+            flex-basis: 5%;
         }
         div,
         h3 {
@@ -137,24 +139,15 @@ export default class HomeCarousel extends Vue {
             margin: auto 0;
         }
         .versus {
-            .svg- {
-                &line {
-                    fill: #fff;
-                }
-                &text {
-                    fill: #006db4;
-                }
+            svg {
+                height: 100%;
             }
-        }
-        &:hover {
-            background: #fff;
-            color: #006db4;
             .svg- {
                 &line {
-                    fill: #006db4;
+                    fill: #fff;
                 }
                 &text {
-                    fill: #fff;
+                    fill: #006db4;
                 }
             }
         }

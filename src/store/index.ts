@@ -9,7 +9,10 @@ export default createStore({
     lastWeekMatches: [],
     boxScore: [],
     matchDetails: [],
+    playerDetails: [],
+    playerDetailsPlayoffs: [],
     matchId: 0,
+    playerId: 0,
   },
   mutations: {
     setLastWeekMatches(state, matches) {
@@ -18,11 +21,20 @@ export default createStore({
     setMatchId(state, matchId) {
       state.matchId = matchId; 
     },
+    setPlayerId(state, playerId) {
+      state.playerId = playerId; 
+    },
     setBoxScore(state, score) {
       state.boxScore = score; 
     },
     setMatchDetails(state, details) {
       state.matchDetails = details; 
+    },
+    setPlayerDetails(state, details) {
+      state.playerDetails = details; 
+    },
+    setPlayerDetailsPlayoffs(state, details) {
+      state.playerDetailsPlayoffs = details; 
     },
   },
   actions: {
@@ -47,12 +59,33 @@ export default createStore({
       const response = await axios.get(url)
       commit('setMatchDetails', response.data);
     },
+    async getPlayerDetails({ commit, state}, season) {
+      if(!season) season === '2021'
+      const url = 'https://www.balldontlie.io/api/v1/stats?postseason=false&per_page=100&seasons[]='+season+'&player_ids[]=' + state.playerId;
+      const response = await axios.get(url)
+      commit('setPlayerDetails', response.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min));
+      const urlPlayoffs = 'https://www.balldontlie.io/api/v1/stats?postseason=true&per_page=100&seasons[]='+season+'&player_ids[]=' + state.playerId;
+      const responsePlayoffs = await axios.get(urlPlayoffs)
+      commit('setPlayerDetailsPlayoffs', responsePlayoffs.data.data.filter((match) => match.min !== '0:00' && match.min !== '' && match.min));
+    },
+    // getTeamName(teamId) {
+    //   const url = 'https://www.balldontlie.io/api/v1/teams/'+ teamId;
+    //   const response = axios.get(url)
+    //   console.log(response);
+    // },
+    async getPlayerInfo({state}) {
+      const url = 'https://www.balldontlie.io/api/v1/players/'+ state.playerId;
+      const response = await axios.get(url)
+      return response.data;
+    },
   },
   getters: {
     lastWeekMatches: state => state.lastWeekMatches,
     matchId: state => state.matchId,
     boxScore: state => state.boxScore,
     matchDetails: state => state.matchDetails,
+    playerDetails: state => state.playerDetails,
+    playerDetailsPlayoffs: state => state.playerDetailsPlayoffs,
   },
   plugins: [createPersistedState()],
 })

@@ -89,7 +89,7 @@ import { useStore } from "vuex";
 @Options({
     props: ["liveMatches"],
 })
-export default class HomeCarousel extends Vue {
+export default class LiveMatches extends Vue {
     private store = useStore();
     public liveMatches = [];
 

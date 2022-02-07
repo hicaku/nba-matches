@@ -85,15 +85,15 @@
                             v-for="(player, index) in boxScoreFiltered.sort(
                                 (player1, player2) =>
                                     player2.min
-                                        .split(':')
+                                        ?.split(':')
                                         .reduce((s, t) => s * 60 + +t, 0) -
                                     player1.min
-                                        .split(':')
+                                        ?.split(':')
                                         .reduce((s, t) => s * 60 + +t, 0)
                             )"
                             :key="index"
                         >
-                            <td @click="playerDetail(player.id)">
+                            <td @click="playerDetail(player.player.id)">
                                 <div class="player-name">
                                     {{
                                         player.player.first_name +
@@ -350,7 +350,7 @@
 import { Vue } from "vue-class-component";
 import { useStore } from "vuex";
 
-export default class Home extends Vue {
+export default class MatchDetail extends Vue {
     private store = useStore();
     private boxScore = [];
     public matchDetails = [];
@@ -367,7 +367,8 @@ export default class Home extends Vue {
         return this.matchDetails;
     }
     playerDetail(id: number): void {
-        console.log(id)
+        this.store.commit("setPlayerId", id);
+        this.$router.push('/player-detail');
     }
     getImgUrl(id: number): any {
         if (id) {
@@ -448,10 +449,13 @@ export default class Home extends Vue {
             width: auto;
             min-width: 0;
             max-width: 100%;
-            display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            cursor: pointer;
+            &:hover {
+                color: rgb(170, 170, 170);
+            }
         }
         thead {
             background: rgb(170, 170, 170);
