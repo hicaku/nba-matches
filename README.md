@@ -17,7 +17,7 @@ and you will see the project in your browser!
 
 ![image](https://user-images.githubusercontent.com/40501852/152704786-de0c5e35-74df-4b57-9ee8-d1c85c39ec46.png)
 
-![image](https://user-images.githubusercontent.com/40501852/152890975-3d1051c7-975e-4890-902a-f3e77a49e1ac.png)
+![image](https://user-images.githubusercontent.com/40501852/152891454-571860d3-7e88-43dc-80e5-e7d41b50e986.png)
 
 ![image](https://user-images.githubusercontent.com/40501852/152891023-64c9212f-ad11-42e1-8fd0-1f588f2cbf70.png)
 
