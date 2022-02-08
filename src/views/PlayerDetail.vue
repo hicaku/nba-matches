@@ -71,8 +71,7 @@
                     <tbody>
                         <tr class="avg-row">
                             <td>AVERAGE</td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="2">{{ playerDetail.length + ' MATCHES' }}</td>
                             <td>
                                 {{
                                     (
