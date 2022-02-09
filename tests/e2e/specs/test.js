@@ -38,4 +38,16 @@ describe("Whole Page Tests", () => {
         .should("contain", "translateX(-" + scrollAmount + "px)");
     });
   });
+  it("Loads the images", () => {
+    cy.get(':nth-child(1) > .scores > :nth-child(1) > .logo > img')
+      .should('be.visible')
+      .and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0) 
+      })
+     cy.get(':nth-child(2) > img')
+      .should('be.visible')
+      .and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0) 
+      })
+  });
 });

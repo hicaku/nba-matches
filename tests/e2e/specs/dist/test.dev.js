@@ -24,4 +24,12 @@ describe("Whole Page Tests", function () {
       cy.get(".card-wrapper").should("have.attr", "style").should("contain", "translateX(-" + scrollAmount + "px)");
     });
   });
+  it("Loads the images", function () {
+    cy.get(':nth-child(1) > .scores > :nth-child(1) > .logo > img').should('be.visible').and(function ($img) {
+      expect($img[0].naturalWidth).to.be.greaterThan(0);
+    });
+    cy.get(':nth-child(2) > img').should('be.visible').and(function ($img) {
+      expect($img[0].naturalWidth).to.be.greaterThan(0);
+    });
+  });
 });
