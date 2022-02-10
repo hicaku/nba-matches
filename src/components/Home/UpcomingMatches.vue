@@ -86,7 +86,7 @@ export default defineComponent({
 .upcoming-list {
     overflow: hidden;
     margin: 35px auto;
-    color: #006db4;
+    color: #002a46;
     .upcoming-match {
         display: flex;
         flex-direction: row;
@@ -98,7 +98,7 @@ export default defineComponent({
         margin: 0 auto;
         border: 1px solid #fff;
         border-radius: 25px;
-        background: #006db4;
+        background: #002a46;
         color: #fff;
         span,
         h3 {
@@ -141,7 +141,7 @@ export default defineComponent({
                     fill: #fff;
                 }
                 &text {
-                    fill: #006db4;
+                    fill: #002a46;
                 }
             }
         }

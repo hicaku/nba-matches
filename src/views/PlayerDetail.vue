@@ -41,7 +41,7 @@
             </select>
         </div>
         <div class="table-div">
-            <div style="overflow: auto">
+            <div style="overflow: auto; border-radius: 20px;">
                 <table v-if="playerDetail.length">
                     <thead>
                         <tr>
@@ -71,7 +71,9 @@
                     <tbody>
                         <tr class="avg-row">
                             <td>AVERAGE</td>
-                            <td colspan="2">{{ playerDetail.length + ' MATCHES' }}</td>
+                            <td colspan="2">
+                                {{ playerDetail.length + " MATCHES" }}
+                            </td>
                             <td>
                                 {{
                                     (
@@ -684,10 +686,12 @@ export default defineComponent({
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-evenly;
-        background: #006db4;
+        background: #002a46;
         color: #fff;
         padding: 50px 0;
         font-size: 20px;
+        border-bottom-left-radius: 35%;
+        border-bottom-right-radius: 35%;
         img {
             margin: 0 auto;
             max-width: 300px;
@@ -725,7 +729,7 @@ export default defineComponent({
         padding: 30px;
         border-radius: 20px;
         overflow: auto;
-        background: #006db4;
+        background: #002a46;
         color: #fff;
         border-radius: 20px;
     }
@@ -742,7 +746,7 @@ export default defineComponent({
             text-align: left;
         }
         thead {
-            background: rgb(170, 170, 170);
+            background: #006db4;
         }
         thead,
         tbody {
@@ -764,13 +768,16 @@ export default defineComponent({
             }
         }
         .avg-row {
-            background: #002a46;
+            background: #006db4;
+            &:nth-child(1) {
+                text-align: center;
+            }
         }
         .match-row {
-            transition: all .7s;
+            transition: all 0.7s;
             &:hover {
                 cursor: pointer;
-                background: #003d66;
+                background: #006db4;
                 color: #fff;
             }
         }
@@ -778,6 +785,8 @@ export default defineComponent({
     @media screen and (max-width: 772px) {
         .player-card {
             flex-direction: column;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
             div {
                 text-align: center;
             }

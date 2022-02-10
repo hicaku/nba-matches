@@ -177,7 +177,7 @@ export default defineComponent({
         border: none;
         border-radius: 50%;
         outline: none;
-        color: #006db4;
+        color: #002a46;
         background: rgba(255, 255, 255, 0.8);
         height: 40px;
         width: 40px;
@@ -187,7 +187,7 @@ export default defineComponent({
         transition: all .5s;
         &:hover {
             color: #fff;
-            background: #006db4;
+            background: #002a46;
         }
         &.prev-button {
             left: 10px;
@@ -238,7 +238,7 @@ export default defineComponent({
             }
             &:hover {
                 color: #fff;
-                background: #006db4;
+                background: #002a46;
             }
         }
     }

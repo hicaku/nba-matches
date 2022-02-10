@@ -104,7 +104,7 @@ export default defineComponent({
 .live-list {
     overflow: hidden;
     margin: 35px auto;
-    color: #006db4;
+    color: #002a46;
     .live-match {
         display: flex;
         flex-direction: row;
@@ -117,7 +117,7 @@ export default defineComponent({
         margin: 0 auto;
         border: 1px solid #fff;
         border-radius: 25px;
-        background: #006db4;
+        background: #002a46;
         color: #fff;
         transition: all .5s;
         cursor: pointer;
@@ -158,7 +158,7 @@ export default defineComponent({
                     fill: #fff;
                 }
                 &text {
-                    fill: #006db4;
+                    fill: #002a46;
                 }
             }
         }
@@ -167,7 +167,7 @@ export default defineComponent({
             color: #006db4;
             .svg- {
                 &line {
-                    fill: #006db4;
+                    fill: #002a46;
                 }
                 &text {
                     fill: #fff;

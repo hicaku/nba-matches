@@ -11,7 +11,7 @@
                 <h2 class="name">{{ matchDetail.home_team?.name }}</h2>
             </div>
             <h1 class="score">{{ matchDetail.home_team_score }}</h1>
-            <h3 class="divider">FINAL</h3>
+            <h3 class="divider">{{ matchDetail.status }}</h3>
             <h1 class="score">{{ matchDetail.visitor_team_score }}</h1>
             <div class="away">
                 <img
@@ -54,7 +54,7 @@
                     matchDetail.visitor_team?.full_name
                 }}</label>
             </div>
-            <div style="overflow: auto">
+            <div style="overflow: auto; border-radius: 20px;">
                 <table>
                     <thead>
                         <tr>
@@ -131,7 +131,7 @@
                             <td>{{ player.turnover }}</td>
                             <td>{{ player.pf }}</td>
                         </tr>
-                        <tr>
+                        <tr class="totals-row">
                             <th>TOTALS</th>
                             <th></th>
                             <th>
@@ -403,7 +403,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .score-card {
     width: 100%;
-    background: #006db4;
+    background: #002a46;
     color: #fff;
     margin: 0 auto 60px;
     padding: 30px;
@@ -411,6 +411,8 @@ export default defineComponent({
     flex-wrap: wrap;
     flex-direction: row;
     text-align: center;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 35%;
     div {
         flex: 1 1;
     }
@@ -426,7 +428,7 @@ export default defineComponent({
 }
 .box-score-card {
     width: 75%;
-    background: #006db4;
+    background: #002a46;
     color: #fff;
     border-radius: 20px;
     margin: 25px auto;
@@ -445,12 +447,10 @@ export default defineComponent({
             cursor: pointer;
             transition: all 0.7s linear;
             padding: 10px;
-            border-top: 1px solid #006db4;
-            border-bottom: 1px solid #006db4;
-            border-radius: 7px;
+            border-radius: 50px;
         }
         input:checked + label {
-            background: rgb(153, 194, 255);
+            background: #006db4;
         }
     }
     table {
@@ -469,11 +469,11 @@ export default defineComponent({
             cursor: pointer;
             transition: all 0.7s;
             &:hover {
-                color: rgb(170, 170, 170);
+                color: #006db4;
             }
         }
         thead {
-            background: rgb(170, 170, 170);
+            background: #006db4;
         }
         thead,
         tbody {
@@ -498,12 +498,17 @@ export default defineComponent({
                 margin-left: 7px;
             }
         }
+        .totals-row {
+            background: #006db4;
+        }
     }
 }
 @media screen and (max-width: 972px) {
     .score-card {
         flex-direction: column;
         padding: 30px 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         .name {
             display: none;
         }

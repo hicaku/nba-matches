@@ -11,13 +11,11 @@
 </template>
 <style lang="less" scoped>
 .nav {
-    height: 50px;
     text-align: right;
-    font-size: 24px;
-    color: #006db4;
+    font-size: 2.6em;
+    color: #002a46;
     width: 75%;
     margin: 0 auto;
-    border-bottom: 2px solid #006db4;
     img {
         float: left;
         margin-left: 20px;
@@ -30,12 +28,12 @@
     }
     a {
         text-decoration: none;
-        color: #006db4;
-        border-right: 2px solid #006db4;
+        color: #002a46;
+        border-right: 2px solid #002a46;
         transition: all .5s;
         &:hover {
             color: #fff;
-            background: #006db4;
+            background: #002a46;
         }
     }
 }
