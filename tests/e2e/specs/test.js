@@ -4,7 +4,7 @@ describe("Whole Page Tests", () => {
   beforeEach(() => {
     cy.visit("/");
   });
-  it("All elements at the correct position", () => {
+  it("Should render every element that is necessary", () => {
     cy.get(".next-button")
       .should("be.visible");
     cy.get(".prev-button")
@@ -25,7 +25,7 @@ describe("Whole Page Tests", () => {
       .should("be.visible")
       .contains("ET");
   });
-  it("Next button scrolls to right", () => {
+  it("Should scroll the wrapper on click to next button", () => {
     cy.get(".next-button")
       .click();
     cy.get(".prev-button")
@@ -38,7 +38,7 @@ describe("Whole Page Tests", () => {
         .should("contain", "translateX(-" + scrollAmount + "px)");
     });
   });
-  it("Loads the images", () => {
+  it("Should load the images", () => {
     cy.get(':nth-child(1) > .scores > :nth-child(1) > .logo > img')
       .should('be.visible')
       .and(($img) => {
@@ -48,6 +48,29 @@ describe("Whole Page Tests", () => {
       .should('be.visible')
       .and(($img) => {
         expect($img[0].naturalWidth).to.be.greaterThan(0) 
+      })
+  });
+  it("Should match the scores that is clicked on the card", () => {
+    cy.get(':nth-child(1) > .scores > :nth-child(1) > .score')
+      .then(($homeScore) => {
+        const homeScore = $homeScore.text()
+        cy.get(':nth-child(1) > .scores > :nth-child(2) > .score')
+        .then(($visitorScore) => {
+          const visitorScore = $visitorScore.text()
+          cy.get(':nth-child(1) > .scores > :nth-child(1)')
+            .click()
+          cy.get('.divider')
+            .should("be.visible")
+            .contains("FINAL");
+          cy.get('.score-card > :nth-child(2)')
+            .should('have.text', homeScore)
+          cy.get('.score-card > :nth-child(4)')
+            .should('have.text', visitorScore)
+          const totalScore = parseInt(homeScore) + parseInt(visitorScore);
+          cy.get('tr')
+            .last()
+            .contains(totalScore)
+        })
       })
   });
 });
