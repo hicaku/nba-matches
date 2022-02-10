@@ -46,4 +46,25 @@ describe("Whole Page Tests", function () {
       });
     });
   });
+  it("Should match the scores that is on the table", function () {
+    cy.get(':nth-child(1) > .scores > :nth-child(1)').click();
+
+    var toStrings = function toStrings(cells$) {
+      return Cypress._.map(cells$, 'textContent');
+    };
+
+    var toNumbers = function toNumbers(texts) {
+      return Cypress._.map(texts, Number);
+    };
+
+    var sum = function sum(numbers) {
+      return Cypress._.sum(numbers);
+    };
+
+    var sumScoreValues = Cypress._.flow([toStrings, toNumbers, sum]);
+
+    cy.get('td:nth-child(3)').then(sumScoreValues).then(function (cellsTotal) {
+      cy.get('tr').last().contains(cellsTotal);
+    });
+  });
 });

@@ -73,4 +73,20 @@ describe("Whole Page Tests", () => {
         })
       })
   });
+  it("Should match the scores that is on the table", () => {
+    cy.get(':nth-child(1) > .scores > :nth-child(1)')
+      .click()
+    const toStrings = (cells$) => Cypress._.map(cells$, 'textContent')
+    const toNumbers = (texts) => Cypress._.map(texts, Number)
+    const sum = (numbers) => Cypress._.sum(numbers)
+    
+    const sumScoreValues = Cypress._.flow([toStrings, toNumbers, sum])
+    cy.get('td:nth-child(3)')
+      .then(sumScoreValues)
+      .then(cellsTotal => {
+        cy.get('tr')
+        .last()
+        .contains(cellsTotal)
+      })
+  });
 });
