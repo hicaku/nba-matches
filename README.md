@@ -1,6 +1,6 @@
 # nba-matches
 
-Hi! This is a **Vue.js + Vuex + TypeScript + Jest + Cypress** implementation. In this app you can **check the latest games, check the box score, examine the players' statistics season by season and more!**
+Hi! This is a **Vue.js + Vuex + TypeScript + Cypress** implementation. In this app you can **check the latest games, check the box score, examine the players' statistics season by season and more!**
 
 If you want to try it out you can simply click **Code > Copy Icon** and go to your Terminal/Cmd etc.
 
