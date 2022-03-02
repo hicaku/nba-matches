@@ -1,4 +1,5 @@
 # nba-matches
+**Live Demo:  [nba-matches](http://nba.hicaku.com/)**
 
 Hi! This is a **Vue.js + Vuex + TypeScript + Cypress** implementation. In this app you can **check the latest games, check the box score, examine the players' statistics season by season and more!**
 
@@ -20,4 +21,3 @@ and you will see the project in your browser!
 ![image](https://user-images.githubusercontent.com/40501852/152891454-571860d3-7e88-43dc-80e5-e7d41b50e986.png)
 
 ![image](https://user-images.githubusercontent.com/40501852/152891023-64c9212f-ad11-42e1-8fd0-1f588f2cbf70.png)
-
